@@ -1,5 +1,6 @@
 // import '../App.css';
 import Logo from '../asset/Logo.png'
+import LogoCloud from '../asset/Splash.svg'
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 
