@@ -1,3 +1,23 @@
+# Lost in Translaton
+
+This is a spa that acts as a sign language translator, built using React framework. The application translates English words and short sentences to American sign language, using provided images.
+
+## Features
+- StartUp/Login page where users can enter their name witch will be saved to the Translation API.
+- Main/Translation page where users can input text to be translated into sign language.
+- Profile page where users can see and delete their ten last tranclation history.
+
+## Requirments 
+- Figma
+- NPM/Node.js (LTS – Long Term Support version)
+- React CRA (create-react-app)
+- Visual Studio Code Text Editor/ IntelliJ
+- Browser Developer Tools for testing and debugging
+- React and Redux Dev Tools
+- Git
+- Rest API: https://github.com/dewald-els/noroff-assignment-api
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
