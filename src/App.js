@@ -1,14 +1,16 @@
 import './App.css';
 import Header from './view/Header';
+import LoginForm  from './components/LoginForm';
 
 
 function App() {
   return (
     <div className="App">
-      <Header />
+       <LoginForm />
+     
 
       
-      <p>hej</p>
+      
     </div>
   );
 }
