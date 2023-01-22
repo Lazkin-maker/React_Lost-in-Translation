@@ -31,12 +31,13 @@ input {
   background-color: #EFEFEF;
 }
 /* border underline of div */
-div input {
+/* div input {
   border: 3px solid #845EC2;
-}
+} */
 
 /* Body */
 p {
   color: #969696;
   font-family: 'Sanchez', serif;
 }
+

@@ -1,7 +1,10 @@
-export const TranslationView = () => {
-    return (
-        <div>
-            Translation View
-        </div>
-    )
+import InputComponent from '../components/InputComponent'
+
+const TranslationView = () => {
+  return (
+    <>
+    <InputComponent />
+    </>
+  );
 }
+export default TranslationView
