@@ -30,13 +30,13 @@ const ImgHeader = () => {
 const Header = () => {
   return (
     <header>
-      <Navbar>
-        <Container>
+      <Navbar style={{ width: '100%'}}>
+        <Container style={{ justifyContent: 'initial' }}>
           <Navbar.Brand>
             <ImgHeader />
             {' '}
           </Navbar.Brand>
-          <h1 style={{ color: '#EFEFEF', paddingLeft: '10%', paddingTop: '12px' }}>Lost in Translation</h1>        
+          <h1 style={{ color: '#EFEFEF'}}>Lost in Translation</h1>        
           </Container>
       </Navbar>
     </header>
