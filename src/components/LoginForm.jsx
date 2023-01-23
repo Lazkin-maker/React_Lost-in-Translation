@@ -1,6 +1,7 @@
 import Logo from '../asset/Logo.png'
-import LogoCloud from '../asset/Splash.svg'
+// import LogoCloud from '../asset/Splash.svg'
 import InputComponent from './InputComponent'
+import LogoImage from '../components/LogoImage';
 
 
 const LoginForm = () => {
@@ -16,7 +17,7 @@ const LoginForm = () => {
                 <h1 style={{ color: '#EFEFEF', paddingLeft: '10%', paddingTop: '12px' }}>Lost in Translation</h1>
             </div>
             <div className="container" style={{ backgroundColor: ' #FFC75F', display: 'flex', height: '300px', maxWidth: 'inherit', position: 'absolute' }}>
-                <div style={{ position: 'relative', top: '0', left: '0', marginLeft: '10em', marginTop: '2.5em' }}>
+                {/* <div style={{ position: 'relative', top: '0', left: '0', marginLeft: '10em', marginTop: '2.5em' }}>
                     <img
                         alt="Cloud background"
                         src={LogoCloud}
@@ -34,7 +35,13 @@ const LoginForm = () => {
                         className="image2"
 
                     />
-                </div>
+                </div> */}
+                <LogoImage
+              imgSrc={Logo}
+              imgAlt={'A happy wavving robot'}
+              imgWidth={'120'}
+              imgHeight={'120'}
+            />
                 <div className='text' style={{
                     display: 'flex', flexDirection: 'column', justifyContent: 'center',
                     paddingLeft: '6.5em', paddingBottom: '5em'
