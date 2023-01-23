@@ -8,6 +8,7 @@
 } */
 
 /* Background color yellow */
+* {margin :0; padding:0;}
 
 header  {
   width: 100vw;
@@ -17,7 +18,7 @@ header  {
   height: 70px;
 
 }
-header h1 {
+h1 {
   font-family: 'Love Ya Like A Sister';
 }
 
