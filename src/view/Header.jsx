@@ -1,40 +1,47 @@
-// import '../App.css';
+import '../App.css';
 import Logo from '../asset/Logo.png'
 import LogoCloud from '../asset/Splash.svg'
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 
-// const Header = () => {
-//     return (
-//     <div>
-//     <header>
-//         <img src={Logo} alt="A happy wavy robot" />
-//         <h1>Lost in Translation</h1>
-//     </header>
-//     </div>)
-// } 
+const ImgHeader = () => {
+
+  return (
+    <>
+      <img
+        alt="A happy wavy robot"
+        src={Logo}
+        width="100%"
+        height="auto"
+        className="d-inline-block align-right"
+        style={{
+          backgroundImage: `url(${LogoCloud})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "contain",
+          width: "3rem",
+          height: "3rem",
+        }}
+      />
+    </>
+  )
+}
 
 
 const Header = () => {
-    return (
+  return (
     <header>
-        <Navbar>
+      <Navbar>
         <Container>
           <Navbar.Brand>
-            <img
-              alt="A happy wavy robot"
-              src={Logo}
-              width="30"
-              height="30"
-              className="d-inline-block align-right"
-            />{' '}
-            <h1>Lost in Translation</h1>
+            <ImgHeader />
+            {' '}
           </Navbar.Brand>
-        </Container>
+          <h1 style={{ color: '#EFEFEF', paddingLeft: '10%', paddingTop: '12px' }}>Lost in Translation</h1>        
+          </Container>
       </Navbar>
     </header>
-    )
-} 
+  )
+}
 
 
 

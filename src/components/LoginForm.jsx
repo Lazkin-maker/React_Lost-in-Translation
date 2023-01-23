@@ -13,7 +13,7 @@ const LoginForm = () => {
             <div className="container" style={{ backgroundColor: ' #FFC75F', display: 'flex', height: '300px', maxWidth : 'inherit' , position:'absolute'}}>
                 <div style={{position: 'relative', top: '0', left: '0' , marginLeft : '10em' ,marginTop: '2.5em' }}>
                     <img
-                        alt="Cloud Image"
+                        alt="Cloud background"
                         src={LogoCloud}
                         width="120"
                         height="120"
@@ -39,9 +39,7 @@ const LoginForm = () => {
                 </div>
             </div>
 
-            <form>
-                <InputComponent />
-            </form>
+                <InputComponent inputBorder={'#EFEFEF'} />
         </>
     )
 }
