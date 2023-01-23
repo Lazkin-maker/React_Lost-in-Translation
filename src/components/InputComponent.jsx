@@ -46,17 +46,8 @@ import { useState } from 'react'
 
 
 
-const InputComponent = (inputBorder) => {
-
-  const [userName, setUserName] = useState(''); // Declare a state variable...
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    console.log(userName)
-
-
-  }
+const InputComponent = ({ handleSubmit, ariaLabel, placeholder, inputBorder }) => {
+  const [value, setValue] = useState(''); // Declare a state variable...
 
   return (
     <>
@@ -79,7 +70,7 @@ const InputComponent = (inputBorder) => {
       </style>
       <Container>
         <Form onSubmit={handleSubmit}>
-          <InputGroup className="mb-3" style={{border: ' 2px solid', borderRadius: '2rem', borderColor: `${inputBorder}`}}>
+          <InputGroup className="mb-3" style={{ border: ' 2px solid', borderRadius: '2rem', borderColor: `${inputBorder}` }}>
             <InputGroup.Text>
               <i>
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-keyboard" viewBox="0 0 16 16">
@@ -89,14 +80,20 @@ const InputComponent = (inputBorder) => {
               </i>
             </InputGroup.Text>
             <Form.Control
-              aria-label="Amount (to the nearest dollar)"
+              aria-label={ariaLabel}
+              placeholder={placeholder}
               className='btn-inputgroup-bg'
-              value={userName}
-              onChange={e => setUserName(e.target.value)}
+              value={value}
+              onChange={e => setValue(e.target.value)}
               style={{ borderLeft: 'none', borderRight: 'none' }} />
 
             <InputGroup.Text >
-              <button variant="outline-success" className="rounded-circle btn-flat" type="submit">
+              <button
+                variant="outline-success"
+                className="rounded-circle btn-flat"
+                disabled={!value}
+                type="submit"
+              >
                 <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30" fill="#845EC2" className="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
                   <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
                 </svg>
@@ -109,4 +106,5 @@ const InputComponent = (inputBorder) => {
     </>
   );
 }
+
 export default InputComponent
