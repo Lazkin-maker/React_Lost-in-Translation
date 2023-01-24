@@ -1,3 +1,4 @@
+import FetchData from "../api/FetchData";
 import InputComponent from "../components/InputComponent";
 
 const ProfileView = () => {
@@ -15,6 +16,7 @@ const ProfileView = () => {
                 placeholder={'Enter enter a word'}
                 inputBorder={'#EFEFEF'}
             />
+            <FetchData username={'sda'} />
         </div>
     )
 }

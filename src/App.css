@@ -11,12 +11,12 @@
 * {margin :0; padding:0;}
 
 header  {
-  width: 100vw;
+  width: 100%;
   background-color: #FFC75F;
   display: flex;
   flex-direction: row;
   height: 70px;
-
+  border-bottom: 2px solid #ca9f4f;
 }
 h1 {
   font-family: 'Love Ya Like A Sister';
@@ -40,4 +40,20 @@ p {
   color: #969696;
   font-family: 'Sanchez', serif;
 }
+.translation-form-container {
+  background-color: #FFC75F;
+}
 
+
+.translation-display-signs {
+  min-height: 8em;
+}
+
+.translation-display-signs img {
+  width: 4em;
+  height: auto;
+}
+
+.translation-display-footer {
+ background-color: #845EC2;
+}

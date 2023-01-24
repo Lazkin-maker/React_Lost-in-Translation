@@ -13,9 +13,7 @@ const LogoImage = ({ imgSrc, imgAlt, imgWidth, imgHeight }) => {
                 style={{
                     backgroundImage: `url(${LogoCloud})`,
                     backgroundRepeat: "no-repeat",
-                    backgroundSize: "contain",
-                    // width: "3rem",
-                    // height: "3rem",
+                    backgroundSize: "contain"
                 }}
             />
         </>
