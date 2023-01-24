@@ -5,16 +5,22 @@ import { useState } from "react";
 
 const TranslationView = () => {
   const [inputTranslation, setInputTranslation] = useState('');
+  const [translateString, setTranslateString] = useState('');
+
 
   const handleTranslation = (event) => {
     event.preventDefault();
 
-    setInputTranslation(inputTranslation)
-    console.log(inputTranslation);
+    let inputString = inputTranslation.toLowerCase().replace(/[^a-zA-Z]/g, '');
 
-
-
-
+    const regex = /[^a-zA-Z]{0,40}$/
+    if (regex.test(inputString)) {
+      console.log('inputString',inputString)
+      setTranslateString(inputString)
+    }
+    
+    console.log(translateString);
+    setInputTranslation('')
   }
   return (
     <>
