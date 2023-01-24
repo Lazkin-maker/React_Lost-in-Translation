@@ -4,10 +4,14 @@ import LogoImage from '../components/LogoImage';
 
 
 const LoginForm = () => {
+    const [user, setUsername] = useState('');
 
-    const handleSubmit = (e, value) => {
+    const handleSubmit = (event) => {
         // write handle submit code here
+        event.preventDefault();
 
+        setUsername(user)
+        console.log(user);
     }
 
     return (
@@ -41,6 +45,8 @@ const LoginForm = () => {
                     ariaLabel={'Enter your username'}
                     placeholder={'Enter user name'}
                     inputBorder={'#EFEFEF'}
+                    value={username}
+                    setValue={setUsername}
                 />
                 {/* <InputComponent inputBorder={'#EFEFEF'} /> */}
             </div>

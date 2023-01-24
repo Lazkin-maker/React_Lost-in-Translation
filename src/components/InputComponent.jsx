@@ -3,8 +3,7 @@ import { useState } from 'react'
 
 
 
-const InputComponent = ({ handleSubmit, ariaLabel, placeholder, inputBorder }) => {
-  const [value, setValue] = useState(''); // Declare a state variable...
+const InputComponent = ({ handleSubmit, ariaLabel, placeholder, inputBorder, value, setValue }) => {
 
   return (
       <Container>
@@ -22,6 +21,7 @@ const InputComponent = ({ handleSubmit, ariaLabel, placeholder, inputBorder }) =
               aria-label={ariaLabel}
               placeholder={placeholder}
               className='btn-inputgroup-bg'
+              type='text'
               value={value}
               onChange={e => setValue(e.target.value)}
               style={{ borderLeft: 'none', borderRight: 'none', backgroundColor: '#EFEFEF' }} />
