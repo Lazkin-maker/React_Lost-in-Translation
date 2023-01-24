@@ -21,22 +21,19 @@ const TranslationView = () => {
       setTranslateString(inputString)
       setSignTranslated(translateString.split('').map((chars, index) => (
         `individial_signs/${chars}.png`
-        )));
+      )));
     } else {
 
+      setInputTranslation('Someting went wrong, Please try again!')
       console.log("Somthing went wrong");
     }
-
-
 
   }
   return (
     <>
-      <Container fluid className="translation-form-container">
+      <Container fluid className="translation-form-container mb-5">
         <Row className="justify-content-md-center">
-          <Col xs={8}>
-          <img src='../asset/Logo.png' style={{ width: '30px', height: '30px'}} />
-          <img src='individial_signs/p.png' style={{ width: '30px', height: '30px'}} />
+          <Col className="mt-3 mb-1" xs={8}>
             <InputComponent
               handleSubmit={handleTranslation}
               ariaLabel={"Enter a word or a sentens for translation"}
@@ -49,7 +46,13 @@ const TranslationView = () => {
           </Col>
         </Row>
       </Container>
-      <TranslationDisplay signTranslated={signTranslated} />
+      <Container>
+        <Row className="justify-content-md-center">
+          <Col className="mt-3 mb-1" xs={8}>
+            <TranslationDisplay signTranslated={signTranslated} />
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 }

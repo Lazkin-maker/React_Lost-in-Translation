@@ -11,7 +11,7 @@
 * {margin :0; padding:0;}
 
 header  {
-  width: 100vw;
+  width: 100%;
   background-color: #FFC75F;
   display: flex;
   flex-direction: row;
@@ -44,3 +44,16 @@ p {
   background-color: #FFC75F;
 }
 
+
+.translation-display-signs {
+  min-height: 8em;
+}
+
+.translation-display-signs img {
+  width: 4em;
+  height: auto;
+}
+
+.translation-display-footer {
+ background-color: #845EC2;
+}
