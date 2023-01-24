@@ -6,7 +6,7 @@ import { useState } from "react";
 const TranslationView = () => {
   const [inputTranslation, setInputTranslation] = useState('');
   const [translateString, setTranslateString] = useState('');
-
+  const signTranslated = [[]];
 
   const handleTranslation = (event) => {
     event.preventDefault();
@@ -15,12 +15,18 @@ const TranslationView = () => {
 
     const regex = /[^a-zA-Z]{0,40}$/
     if (regex.test(inputString)) {
-      console.log('inputString',inputString)
+      console.log('inputString', inputString)
       setTranslateString(inputString)
+      translateString.split('').forEach((chars, index) => {
+        signTranslated[0].push(<img key={index} src={`../asset/individial_signs/${chars}.png`} />)
+      })
+    } else {
+
+      console.log("Somthing went wrong");
     }
-    
-    console.log(translateString);
-    setInputTranslation('')
+
+
+
   }
   return (
     <>
@@ -34,6 +40,7 @@ const TranslationView = () => {
               inputBorder={'#ebebeb'}
               value={inputTranslation}
               setValue={setInputTranslation}
+              maxLength={40}
             />
           </Col>
         </Row>

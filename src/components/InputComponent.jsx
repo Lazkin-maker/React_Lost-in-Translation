@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 
 
-const InputComponent = ({ handleSubmit, ariaLabel, placeholder, inputBorder, value, setValue }) => {
+const InputComponent = ({ handleSubmit, ariaLabel, placeholder, inputBorder, value, setValue, maxLength }) => {
 
   return (
       <Container>
