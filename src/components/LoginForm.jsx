@@ -13,11 +13,12 @@ const LoginForm = () => {
 
     return (
         <>
+
             <div className="div-header" style={{ backgroundColor: ' #FFC75F', borderBottom: 'solid', borderColor: '#969696' }}>
-                <h1 style={{ color: '#EFEFEF', paddingLeft: '10%', paddingTop: '12px' }}>Lost in Translation</h1>
+                {/* <h1 style={{ color: '#EFEFEF', paddingLeft: '10%', paddingTop: '12px' }}>Lost in Translation</h1> */}
             </div>
             <div className="container" style={{ backgroundColor: ' #FFC75F', display: 'flex', height: '300px', maxWidth: 'inherit', position: 'absolute' }}>
-                {/* <div style={{ position: 'relative', top: '0', left: '0', marginLeft: '10em', marginTop: '2.5em' }}>
+                <div style={{ position: 'relative', top: '0', left: '0', marginLeft: '10em', marginTop: '2.5em' }}>
                     <img
                         alt="Cloud background"
                         src={LogoCloud}
@@ -31,11 +32,10 @@ const LoginForm = () => {
                         src={Logo}
                         width="100"
                         height="100"
-                        style={{ left: '12px', top: '12px', position: 'absolute' }}
+                        style={{ left: '12px', top: '12px', position: 'absolute'}}
                         className="image2"
-
                     />
-                </div> */}
+                </div> 
                 <LogoImage
               imgSrc={Logo}
               imgAlt={'A happy wavving robot'}
@@ -51,12 +51,19 @@ const LoginForm = () => {
                 </div>
             </div>
 
-            <InputComponent
+           
+            <div className='input-div' style={{
+                marginLeft: "25%", marginRight: "10%", border: 'solid', padding: '40px', borderRadius: '2%', marginTop: '14em', position: 'absolute', zIndex: '110'
+                , backgroundColor: 'white', width: '50%'
+            }}>
+                 <InputComponent
                 handleSubmit={handleSubmit}
                 ariaLabel={'Enter your username'}
                 placeholder={'Enter user name'}
                 inputBorder={'#EFEFEF'}
             />
+                {/* <InputComponent inputBorder={'#EFEFEF'} /> */}
+            </div>
         </>
     )
 }
