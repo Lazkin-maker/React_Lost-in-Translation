@@ -1,5 +1,4 @@
 import Logo from '../asset/Logo.png'
-import LogoCloud from '../asset/Splash.svg'
 import InputComponent from './InputComponent'
 import LogoImage from '../components/LogoImage';
 
@@ -13,10 +12,6 @@ const LoginForm = () => {
 
     return (
         <>
-
-            <div className="div-header" style={{ backgroundColor: ' #FFC75F', borderBottom: 'solid', borderColor: '#969696' }}>
-                {/* <h1 style={{ color: '#EFEFEF', paddingLeft: '10%', paddingTop: '12px' }}>Lost in Translation</h1> */}
-            </div>
             <div className="container" style={{ backgroundColor: ' #FFC75F', display: 'flex', height: '300px', maxWidth: 'inherit', position: 'absolute' }}>
                 <div style={{ position: 'relative', top: '0', left: '0', marginLeft: '10em', marginTop: '2.5em', height: '100', width: '100' }}>
                     <LogoImage

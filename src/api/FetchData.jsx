@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 
 const apiURL = 'https://grandiose-persistent-bread.glitch.me';
-const apiKey = ''
+// const apiKey = ''
 
 // Translation Users GET /translations?username=<query>
 const FetchData = ({username}) => {

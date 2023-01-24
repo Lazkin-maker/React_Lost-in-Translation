@@ -16,7 +16,7 @@ header  {
   display: flex;
   flex-direction: row;
   height: 70px;
-
+  border-bottom: 2px solid #ca9f4f;
 }
 h1 {
   font-family: 'Love Ya Like A Sister';
@@ -39,5 +39,8 @@ input {
 p {
   color: #969696;
   font-family: 'Sanchez', serif;
+}
+.translation-form-container {
+  background-color: #FFC75F;
 }
 
