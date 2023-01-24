@@ -1,12 +1,14 @@
 import { Container, Row, Col } from "react-bootstrap"
 
-const TranslationDisplay = () => {
+const TranslationDisplay = ({ signTranslated }) => {
 
     return (
         <Container>
             <Row className="justify-content-md-center">
                 <Col xs={8}>
-                    hej
+                    {signTranslated.map((image, index) => (
+                        <img key={index} src={{image}} />
+                    ))}
                 </Col>
             </Row>
         </Container>
