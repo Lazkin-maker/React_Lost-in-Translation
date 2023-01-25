@@ -66,7 +66,7 @@ const LoginForm = () => {
                 />
                 
                 {loadingUsers ? <p>Loading...</p> : ""}
-
+                {error  !== null? <p> {username}</p> : ""}
             </div>
             {createdUserSuccessfull ? handleUserCreated() : ""}
         </>

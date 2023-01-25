@@ -22,6 +22,8 @@ const Header = () => {
             {' '}
           </Navbar.Brand>
           <h1 style={{ color: '#EFEFEF' }}>Lost in Translation</h1>
+
+          {/* Profile img button */}
         </Container>
       </Navbar>
     </header>
