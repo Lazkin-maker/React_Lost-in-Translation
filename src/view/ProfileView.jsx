@@ -13,6 +13,7 @@ const ProfileView = () => {
              <TranslationHistory/>
         </div>
     )
+    
 }
 
 export default ProfileView;
