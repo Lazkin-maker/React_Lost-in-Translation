@@ -1,5 +1,4 @@
-import FetchData from "../api/FetchData";
-import InputComponent from "../components/InputComponent";
+import { Container, Button} from "react-bootstrap";
 import TranslationHistory from "../components/TranslationHistory";
 
 const ProfileView = () => {
@@ -8,12 +7,14 @@ const ProfileView = () => {
     }
     
     return (
-        <div>
-            Profile View
+        <Container>
+            <h1>Profile page</h1>
+            <h2>History</h2>
+            <Button>Logout</Button>
              <TranslationHistory/>
-        </div>
+        </Container>
     )
-    
+
 }
 
 export default ProfileView;
