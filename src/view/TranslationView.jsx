@@ -2,33 +2,37 @@ import { Container, Row, Col } from "react-bootstrap"
 import TranslationDisplay from "../components/TranslationDisplay";
 import InputComponent from '../components/InputComponent'
 import { useState } from "react";
-import Logo from '../asset/Logo.png'
 
+const processInputString = (inputString) => {
+  inputString = inputString.toLowerCase().replace(/[^a-zA-Z]/g, '');
+
+  const regex = /[^a-zA-Z]{0,40}$/
+  if (regex.test(inputString)) {
+    return {string:inputString, error:null}
+  } 
+  return {string:null, error:"Something went wrong please try again!"}
+}
 
 const TranslationView = () => {
   const [inputTranslation, setInputTranslation] = useState('');
-  const [translateString, setTranslateString] = useState('');
   const [signTranslated, setSignTranslated] = useState([]);
+  const [error, setError] = useState(null)
 
   const handleTranslation = (event) => {
     event.preventDefault();
 
-    let inputString = inputTranslation.toLowerCase().replace(/[^a-zA-Z]/g, '');
+    const {string, error} = processInputString(inputTranslation);
 
-    const regex = /[^a-zA-Z]{0,40}$/
-    if (regex.test(inputString)) {
-      console.log('inputString', inputString)
-      setTranslateString(inputString)
-      setSignTranslated(translateString.split('').map((chars, index) => (
+    if (string) {
+      setSignTranslated(string.split('').map((chars, index) => (
         `individial_signs/${chars}.png`
       )));
     } else {
-
-      setInputTranslation('Someting went wrong, Please try again!')
-      console.log("Somthing went wrong");
+      setError(error);
     }
 
   }
+
   return (
     <>
       <Container fluid className="translation-form-container mb-5">
@@ -40,7 +44,7 @@ const TranslationView = () => {
               placeholder={"Enter a word.."}
               inputBorder={'#ebebeb'}
               value={inputTranslation}
-              setValue={setInputTranslation}
+              setValue={error ? error : setInputTranslation}
               maxLength={40}
             />
           </Col>
@@ -56,4 +60,4 @@ const TranslationView = () => {
     </>
   );
 }
-export default TranslationView
+export default TranslationView;
