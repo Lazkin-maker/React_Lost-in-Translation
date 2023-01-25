@@ -8,7 +8,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import store from './store/store';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from "react-router-dom";
+<<<<<<< HEAD
 
+=======
+// import store from './store/store';
+>>>>>>> b26c87c5ff7c166a3d8fccf20ad221f955f6340a
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

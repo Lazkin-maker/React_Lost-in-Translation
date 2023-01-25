@@ -3,7 +3,7 @@ import { Form, InputGroup, Container } from 'react-bootstrap';
 
 
 
-const InputComponent = ({ handleSubmit, ariaLabel, placeholder, inputBorder, value, setValue }) => {
+const InputComponent = ({ handleSubmit, ariaLabel, placeholder, inputBorder, value, setValue, maxLength }) => {
 
   return (
       <Container>
@@ -18,10 +18,12 @@ const InputComponent = ({ handleSubmit, ariaLabel, placeholder, inputBorder, val
               </i>
             </InputGroup.Text>
             <Form.Control
+            required
               aria-label={ariaLabel}
               placeholder={placeholder}
               className='btn-inputgroup-bg'
               type='text'
+              maxLength={maxLength}
               value={value}
               onChange={e => setValue(e.target.value)}
               style={{ borderLeft: 'none', borderRight: 'none', backgroundColor: '#EFEFEF' }} />
