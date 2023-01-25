@@ -1,17 +1,33 @@
 import Logo from '../asset/Logo.png'
 import InputComponent from './InputComponent'
 import LogoImage from '../components/LogoImage';
-
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { addUser, fetchUsers } from '../reducers/userSlice';
+import { redirect, useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
-    const [user, setUsername] = useState('');
+    
+    const { users, loadingUsers, error, createdUserSuccessfull } = useSelector(state => state.user)
+   const [username, setUsername] = useState('');
 
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(fetchUsers())
+    }, [])
+
+    const handleUserCreated = ()=> {
+        //redirect('/translation'); old method
+
+    }
+    const navigate = useNavigate();
     const handleSubmit = (event) => {
-        // write handle submit code here
+        // // write handle submit code here
         event.preventDefault();
+        dispatch(addUser({username}))
+        navigate('/translation')  ; // this is a new method to redirect
 
-        setUsername(user)
-        console.log(user);
     }
 
     return (
@@ -48,8 +64,11 @@ const LoginForm = () => {
                     value={username}
                     setValue={setUsername}
                 />
-                {/* <InputComponent inputBorder={'#EFEFEF'} /> */}
+                
+                {loadingUsers ? <p>Loading...</p> : ""}
+              
             </div>
+            {createdUserSuccessfull ? handleUserCreated() : ""}
         </>
     )
 }

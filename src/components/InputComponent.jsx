@@ -1,7 +1,4 @@
 import { Form, InputGroup, Container } from 'react-bootstrap';
-import { useState } from 'react'
-
-
 
 const InputComponent = ({ handleSubmit, ariaLabel, placeholder, inputBorder, value, setValue, maxLength }) => {
 

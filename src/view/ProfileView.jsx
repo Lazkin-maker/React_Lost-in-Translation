@@ -5,7 +5,6 @@ import TranslationHistory from "../components/TranslationHistory";
 const ProfileView = () => {
     const handleSubmit = (e, value) => {
         // write handle submit code here
-
     }
     
     return (
