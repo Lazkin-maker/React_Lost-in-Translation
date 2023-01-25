@@ -18,7 +18,8 @@ export const fetchUsers = createAsyncThunk(
 export const addUser = createAsyncThunk(
     "user/addUser",
     async(userDetails) =>{
-        console.log(userDetails)
+        console.log("Api key", process.env.REACT_APP_API_KEY, API_BASE_URL)
+        // console.log(REACT_APP_API_KEY)
         const response = await fetch(API_BASE_URL, {
             method: "POST",
             headers: {
