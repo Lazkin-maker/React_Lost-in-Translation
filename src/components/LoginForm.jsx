@@ -7,9 +7,10 @@ import { addUser, fetchUsers } from '../reducers/userSlice';
 import { redirect, useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
-    
+
     const { users, loadingUsers, error, createdUserSuccessfull } = useSelector(state => state.user)
-   const [username, setUsername] = useState('');
+    // const [username, setUsername] = useState('');
+    const [username, setUsername] = useState(localStorage.getItem('username'));
 
     const dispatch = useDispatch()
 
@@ -17,16 +18,19 @@ const LoginForm = () => {
         dispatch(fetchUsers())
     }, [])
 
-    const handleUserCreated = ()=> {
+    const handleUserCreated = () => {
         //redirect('/translation'); old method
 
     }
+
     const navigate = useNavigate();
     const handleSubmit = (event) => {
         // // write handle submit code here
+        console.log(username) // TODO REMOVE
         event.preventDefault();
-        dispatch(addUser({username}))
-        navigate('/translation')  ; // this is a new method to redirect
+        localStorage.setItem('username', username) // TODO localStorage
+        dispatch(addUser({ username }))
+        // navigate('/translation'); // this is a new method to redirect
 
     }
 
@@ -64,11 +68,11 @@ const LoginForm = () => {
                     value={username}
                     setValue={setUsername}
                 />
-                
+
                 {loadingUsers ? <p>Loading...</p> : ""}
-              
+
             </div>
-            {createdUserSuccessfull ? handleUserCreated() : ""}
+            {createdUserSuccessfull ? navigate('/translation') : ""}
         </>
     )
 }

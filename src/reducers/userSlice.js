@@ -44,6 +44,7 @@ export const addUser = createAsyncThunk(
     }
 )
 
+// TODO REMOVE
 const simulateDelay =async() =>{
     return new Promise(x => setTimeout((x), 2000 ))
 }
