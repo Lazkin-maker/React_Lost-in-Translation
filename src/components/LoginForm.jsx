@@ -6,10 +6,12 @@ import { useDispatch, useSelector } from "react-redux"
 import { addUser, fetchUsers } from '../reducers/userSlice';
 import { redirect, useNavigate } from 'react-router-dom';
 
+
+
 const LoginForm = () => {
-    
-    const { users, loadingUsers, error, createdUserSuccessfull } = useSelector(state => state.user)
-   const [username, setUsername] = useState('');
+
+    const { users, loadingUsers, error } = useSelector(state => state.user)
+    const [username, setUsername] = useState('');
 
     const dispatch = useDispatch()
 
@@ -17,17 +19,47 @@ const LoginForm = () => {
         dispatch(fetchUsers())
     }, [])
 
-    const handleUserCreated = ()=> {
-        //redirect('/translation'); old method
+    
+    const checkIfExist = (inputName) => {   
+        console.log(users)
 
+        const usernames =  users.map(user => { // map doesn't change the current array, so we need always to re-assign to a new variable
+            return user.username
+        });
+        
+        const nameExists = usernames.includes(inputName) 
+        console.log(nameExists)
+        return nameExists;      
     }
+
+    const processInputString = (inputString) => {
+        inputString = inputString.toLowerCase().replace(/[^a-zA-Z]/g, '');
+        const check = checkIfExist(inputString)
+
+        if (!check) {
+            const regex = /[^a-zA-Z]{0,40}$/
+            if (regex.test(inputString)) {
+                return { string: inputString, error: null }        
+            }
+            return { string: null, error: "Something went wrong please try again!" }
+        } else {
+            return navigate('/translation');
+        }
+    }
+
+    // const handleUserCreated = () => {
+    //     //redirect('/translation'); old method
+    // }
     const navigate = useNavigate();
     const handleSubmit = (event) => {
         // // write handle submit code here
-        event.preventDefault();
-        dispatch(addUser({username}))
-        navigate('/translation')  ; // this is a new method to redirect
-
+        const { string, error } = processInputString(username)
+        console.log(string);
+        if (string) {
+            event.preventDefault();
+            dispatch(addUser({ string }))
+            navigate('/translation'); // this is a new method to redirect
+        }
     }
 
     return (
@@ -51,7 +83,6 @@ const LoginForm = () => {
                 </div>
             </div>
 
-
             <div className='input-div' style={{
                 marginLeft: "25%", marginRight: "10%", border: 'solid', padding: '40px', borderRadius: '2%', marginTop: '14em', position: 'absolute', zIndex: '110'
                 , backgroundColor: 'white', width: '50%'
@@ -64,11 +95,10 @@ const LoginForm = () => {
                     value={username}
                     setValue={setUsername}
                 />
-                
+
                 {loadingUsers ? <p>Loading...</p> : ""}
-              
             </div>
-            {createdUserSuccessfull ? handleUserCreated() : ""}
+            {/* {createdUserSuccessfull ? handleUserCreated() : ""} */}
         </>
     )
 }
