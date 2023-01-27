@@ -15,33 +15,47 @@ const LoginForm = () => {
     const { users, loadingUsers } = useSelector(state => state.user);
     const [username, setUsername] = useState('');
     const [errorr, setError] = useState(null);
+    const [userObj, setObj] = useState(null)
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    //const [userId, setId] = useState(0)
 
     useEffect(() => {
         dispatch(fetchUsers())
     }, [])
 
 
-    const checkIfExist = (inputName) => {
-        console.log(users)
+    // const checkIfExist = (inputName) => {
+    //     //console.log(users)
 
-        const usernames = users.map(user => { // map doesn't change the current array, so we need always to re-assign to a new variable
-            return user.username
-        });
+    //     const usernames = users.map(user => { // map doesn't change the current array, so we need always to re-assign to a new variable
+    //         console.log(user.username, inputName)
+    //         console.log(user.username === inputName)
 
-        const nameExists = usernames.includes(inputName)
-        console.log(nameExists)
-        return nameExists;
-    }
+    //         if(user.username === inputName){
+    //             //console.log(user,'object')
+    //             setObj(user);
+    //             // setId(user.id);
+    //             //console.log(userObj);
+    //         }
+    //        // setId(user.id);
+    //         // console.log("This is username:: ",user.username);
+    //         return user.username
+    //     });
+
+    //     const nameExists = usernames.includes(inputName)
+    //     console.log(nameExists)
+    //     return nameExists;
+    // }
 
     const processInputString = (inputString) => {
         inputString = inputString.toLowerCase().replace(/[^a-zA-Z]/g, '');
-        const check = checkIfExist(inputString)
+        //const check = checkIfExist(inputString)
+       // console.log(userObj);
 
-        if (!check) {
+
+        //if (!check) {
             const regex = /[^a-zA-Z]{0,40}$/
             if (regex.test(inputString)) {
                 return { string: inputString, errorr: null }
@@ -49,24 +63,26 @@ const LoginForm = () => {
             console.log('något annat');
             return { string: null, errorr: "Something went wrong please try again!" }
 
-        } else {
-            console.log('något')
-            return { string: inputString, errorr: "Something went wrong please try again!" }
-        }
+        //} else {
+            //console.log('något')
+          //  return { string: inputString, errorr: "Something went wrong please try again!" }
+        //}
     }
 
     const handleSubmit = (event) => {
         const { string, errorr } = processInputString(username)
-        console.log(string);
-        if (string) {
+        const loginUser = users.find(user => user.username === username)
+        //console.log(string);
+        if (!loginUser) { // true must changes
             event.preventDefault();
-            dispatch(addUser({ string }))
+            console.log(string)
+            // dispatch(addUser({ username }))
         } else {
-
             setError(errorr)
         }
 
-        localStorage.setItem('username', JSON.stringify(username),[username] ) // TODO localStorage
+        localStorage.setItem('username', JSON.stringify(string),[string] ) // TODO localStorage
+       // localStorage.setItem('id', JSON.stringify(userId) ) // TODO localStorage
         navigate('/translation');
     }
 

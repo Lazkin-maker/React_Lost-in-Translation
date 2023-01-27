@@ -1,7 +1,8 @@
 import { Container, Row, Col } from "react-bootstrap"
 import TranslationDisplay from "../components/TranslationDisplay";
 import InputComponent from '../components/InputComponent'
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 
 const processInputString = (inputString) => {
   inputString = inputString.toLowerCase().replace(/[^a-zA-Z]/g, '');
@@ -14,9 +15,17 @@ const processInputString = (inputString) => {
 }
 
 const TranslationView = () => {
+
   const [inputTranslation, setInputTranslation] = useState('');
   const [signTranslated, setSignTranslated] = useState([]);
   const [error, setError] = useState(null)
+  // const { users, loadingUsers } = useSelector(state => state.user);
+
+  //const dispatch = useDispatch();
+  //let username = JSON.parse(localStorage.getItem('username[]'))
+  let username = JSON.parse(localStorage.getItem('username'))
+  console.log("this is logged" , username);
+
 
   const handleTranslation = (event) => {
     event.preventDefault();
