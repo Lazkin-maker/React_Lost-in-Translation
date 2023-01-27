@@ -5,11 +5,12 @@ import Navbar from 'react-bootstrap/Navbar';
 import LogoImage from '../components/LogoImage';
 import { Link } from 'react-router-dom';
 
+import { useSelector } from "react-redux"
 
 
 
 const Header = () => {
-  let user = "Lalala"
+  let user = localStorage.getItem('username')
 
   return (
     <header>

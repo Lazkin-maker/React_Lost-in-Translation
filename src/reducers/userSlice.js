@@ -2,11 +2,13 @@ import { createAsyncThunk,createSlice} from '@reduxjs/toolkit';
 //import { json } from 'react-router-dom';
 import {API_BASE_URL} from "../constants";
 
+
+
 export const fetchUsers = createAsyncThunk(
     "user/FetchUsers",
     async () =>{
         const response = await fetch(API_BASE_URL);
-        await simulateDelay()
+        //await simulateDelay()
          if(!response.ok){
             return Promise.reject()
          }
@@ -18,7 +20,8 @@ export const fetchUsers = createAsyncThunk(
 export const addUser = createAsyncThunk(
     "user/addUser",
     async(userDetails) =>{
-        console.log("Api key", process.env.REACT_APP_API_KEY, API_BASE_URL)
+        //console.log("Api key", process.env.REACT_APP_API_KEY, API_BASE_URL)
+       
         // console.log(REACT_APP_API_KEY)
         const response = await fetch(API_BASE_URL, {
             method: "POST",
@@ -26,25 +29,19 @@ export const addUser = createAsyncThunk(
                 'X-API-Key': ` ${process.env.REACT_APP_API_KEY}`,
                 "Content-Type" : "application/json"
             },
-            body : JSON.stringify(userDetails)
+            body : JSON.stringify({username: userDetails.string , translations : []}) // here we add element/object to the body
         })
       
             if(!response.ok){
                 console.log(`Request rejected. Status: ${response.status}`);
                 return Promise.reject()
              }
-        
-        // .catch(error =>{
-        //     console.log(`Error : ${error}`);
-        // });
-       
-
+    
         const users = await response.json();
         return {users}
     }
 )
 
-// TODO REMOVE
 const simulateDelay =async() =>{
     return new Promise(x => setTimeout((x), 2000 ))
 }
@@ -54,8 +51,8 @@ export const userSlice = createSlice({
     initialState:{
         users:[],
         loadingUsers : false,
-        error: null,
-        createdUserSuccessfull: false
+        error: null,   
+         
     },
     reducers:{
 
@@ -75,12 +72,10 @@ export const userSlice = createSlice({
             state.loadingUsers = false
         },
 
-        [addUser.fulfilled] : (state, action) =>{
+        [addUser.fulfilled] : (state, action) =>{        
             state.users.push(action.payload.user)
-            state.createdUserSuccessfull = true
-        }
-
-        
+        },
+      
     }
 })
 
