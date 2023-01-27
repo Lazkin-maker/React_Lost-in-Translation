@@ -4,32 +4,37 @@ import LogoImage from '../components/LogoImage';
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { addUser, fetchUsers } from '../reducers/userSlice';
-import { redirect, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
+
 
 
 
 const LoginForm = () => {
 
-    const { users, loadingUsers, error } = useSelector(state => state.user)
+    const { users, loadingUsers } = useSelector(state => state.user);
     const [username, setUsername] = useState('');
+    const [errorr, setError] = useState(null);
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         dispatch(fetchUsers())
     }, [])
 
-    
-    const checkIfExist = (inputName) => {   
+
+    const checkIfExist = (inputName) => {
         console.log(users)
 
-        const usernames =  users.map(user => { // map doesn't change the current array, so we need always to re-assign to a new variable
+        const usernames = users.map(user => { // map doesn't change the current array, so we need always to re-assign to a new variable
             return user.username
         });
-        
-        const nameExists = usernames.includes(inputName) 
+
+        const nameExists = usernames.includes(inputName)
         console.log(nameExists)
-        return nameExists;      
+        return nameExists;
     }
 
     const processInputString = (inputString) => {
@@ -39,27 +44,30 @@ const LoginForm = () => {
         if (!check) {
             const regex = /[^a-zA-Z]{0,40}$/
             if (regex.test(inputString)) {
-                return { string: inputString, error: null }        
+                return { string: inputString, errorr: null }
             }
-            return { string: null, error: "Something went wrong please try again!" }
+            console.log('något annat');
+            return { string: null, errorr: "Something went wrong please try again!" }
+
         } else {
-            return navigate('/translation');
+            console.log('något')
+            return { string: inputString, errorr: "Something went wrong please try again!" }
         }
     }
 
-    // const handleUserCreated = () => {
-    //     //redirect('/translation'); old method
-    // }
-    const navigate = useNavigate();
     const handleSubmit = (event) => {
-        // // write handle submit code here
-        const { string, error } = processInputString(username)
+        const { string, errorr } = processInputString(username)
         console.log(string);
         if (string) {
             event.preventDefault();
             dispatch(addUser({ string }))
-            navigate('/translation'); // this is a new method to redirect
+        } else {
+
+            setError(errorr)
         }
+
+        localStorage.setItem('username', JSON.stringify(username),[username] ) // TODO localStorage
+        navigate('/translation');
     }
 
     return (
