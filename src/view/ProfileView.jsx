@@ -1,18 +1,28 @@
-import FetchData from "../api/FetchData";
-import InputComponent from "../components/InputComponent";
+import { Container, Button} from "react-bootstrap";
+import { useNavigate } from "react-router";
 import TranslationHistory from "../components/TranslationHistory";
 
 const ProfileView = () => {
-    const handleSubmit = (e, value) => {
-        // write handle submit code here
+    const navigate = useNavigate();
+
+    const handleLogut = () => {
+        localStorage.removeItem('username', JSON.stringify(''),[''])
+        // localStorage.clear()
+        navigate('/')
     }
     
     return (
-        <div>
-            Profile View
+        <Container>
+            <h1>Profile page</h1>
+            <h2>History</h2>
+
+            <Button
+            onClick={handleLogut} >Logout</Button>
+            {/* onClick={localStorage.removeItem('username')} >Logout</Button> */}
              <TranslationHistory/>
-        </div>
+        </Container>
     )
+
 }
 
 export default ProfileView;
