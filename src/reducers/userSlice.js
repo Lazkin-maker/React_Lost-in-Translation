@@ -17,6 +17,30 @@ export const fetchUsers = createAsyncThunk(
     }
 )
 
+
+export const addTranslation = createAsyncThunk(
+    "user/addTranslation",
+    async(transDetails, userId)=>{
+        const response = await fetch(`${API_BASE_URL}/${userId}`, {
+            method: 'PATCH', // NB: Set method to PATCH
+            headers: {
+              'X-API-Key': ` ${process.env.REACT_APP_API_KEY}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                // Provide new translations to add to user with id 1
+                translations: ['easy', 'i love javascript'] 
+            })
+        })
+        if(!response.ok){
+            console.log(`Request rejected. Status: ${response.status}`);
+            return Promise.reject()
+        }   
+        const users = await response.json();
+        return {users}
+    }
+)
+
 export const addUser = createAsyncThunk(
     "user/addUser",
     async(userDetails) =>{
@@ -75,6 +99,10 @@ export const userSlice = createSlice({
         [addUser.fulfilled] : (state, action) =>{        
             state.users.push(action.payload.user)
         },
+
+        [addTranslation.fulfilled] : (state, action)=>{        
+            state.user.translation.push(action.payload.translation)
+        }
       
     }
 })
