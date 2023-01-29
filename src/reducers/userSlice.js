@@ -54,8 +54,6 @@ export const addTranslation = createAsyncThunk(
         const transState = getState().user;
         const currentUser = transState.loggedInUser;
 
-
-       
         const response = await fetch(API_BASE_URL+"/"+currentUser.id, {
             method: 'PATCH', // NB: Set method to PATCH
             headers: {
@@ -65,18 +63,21 @@ export const addTranslation = createAsyncThunk(
             body: JSON.stringify({
                  // Provide new translations to add to user with id 1
                  translations: [...currentUser.translations, transDetails.string]
+                //  translations: [transDetails.string]
                 // translations.push(transDetails.string)
             })       
         })
         if(!response.ok){
             console.log(`Request rejected. Status: ${response.status}`);
-            return Promise.reject()
+            throw new Error("Something went wrong while adding");
+            // return Promise.reject()
         }   
         // const json = await response.json();
         // transState = getState().user;
 
-        const users = await response.json();
-        return {user : users}
+        const updateUserTranslation = await response.json();
+return updateUserTranslation;
+        // return {user : users}
         
         // transState.translations = json.transDetails; 
 
@@ -155,24 +156,20 @@ export const userSlice = createSlice({
         },
 
         [addTranslation.pending] : (state, action)=>{        
-            state.loadingUsers = true
+            state.loading = true
         },
 
         [addTranslation.fulfilled] : (state, action)=>{
             // state.loggedInUser.translations = [...action.payload]
+            state.loading = false
             state.loggedInUser.translations = action.payload.translations
             // state.user.translation.push(...action.payload.translations)
         },
 
-        // [addTranslation.fulfilled] : (state, action)=>{        
-        //     state.user.translation.push(action.payload.translation)
-        // }
-        // [addTranslation.fulfilled]: (state, action) => {
-        //     state.user.translations.push(...action.payload.translations)
-        // },
-
         [addTranslation.rejected]: (state, action) => {
             // handle the error here, for example by showing a notification or logging the error
+            state.loading = false
+            state.error = "An error has occuerd"
         }
       
     }
