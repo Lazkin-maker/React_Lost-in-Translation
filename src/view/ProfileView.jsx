@@ -10,14 +10,9 @@ const ProfileView = () => {
     const loggedInUser = useSelector(state => state.user.loggedInUser);
 
     const handleLogut = () => {
-        // localStorage.removeItem('username', JSON.stringify(''),[''])
-        //localStorage.removeItem('user');
-
         localStorage.removeItem('user', JSON.stringify(''),[''])
         dispatch(logOut());
 
-        
-        // localStorage.clear()
         navigate('/')
     }
     
