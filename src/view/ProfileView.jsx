@@ -1,15 +1,20 @@
 import { Container, Button} from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import TranslationHistory from "../components/TranslationHistory";
+import { logOut } from "../reducers/userSlice";
 
 const ProfileView = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const loggedInUser = useSelector(state => state.user.loggedInUser);
 
     const handleLogut = () => {
         // localStorage.removeItem('username', JSON.stringify(''),[''])
         //localStorage.removeItem('user');
 
         localStorage.removeItem('user', JSON.stringify(''),[''])
+        dispatch(logOut());
 
         
         // localStorage.clear()
