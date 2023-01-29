@@ -44,25 +44,28 @@ export const addTranslation = createAsyncThunk(
 export const addUser = createAsyncThunk(
     "user/addUser",
     async(userDetails) =>{
-        //console.log("Api key", process.env.REACT_APP_API_KEY, API_BASE_URL)
-       
-        // console.log(REACT_APP_API_KEY)
-        const response = await fetch(API_BASE_URL, {
-            method: "POST",
-            headers: {
-                'X-API-Key': ` ${process.env.REACT_APP_API_KEY}`,
-                "Content-Type" : "application/json"
-            },
-            body : JSON.stringify({username: userDetails.string , translations : []}) // here we add element/object to the body
-        })
-      
-            if(!response.ok){
-                console.log(`Request rejected. Status: ${response.status}`);
-                return Promise.reject()
-             }
-    
-        const users = await response.json();
-        return {users}
+        const usersResponse = await fetch(API_BASE_URL+"?username="+userDetails.username);
+        const foundUsers = await usersResponse.json();
+        if (foundUsers.length > 0){
+            return {user: foundUsers[0]}
+        }else{
+            const response = await fetch(API_BASE_URL, {
+                method: "POST",
+                headers: {
+                    'X-API-Key': ` ${process.env.REACT_APP_API_KEY}`,
+                    "Content-Type" : "application/json"
+                },
+                body : JSON.stringify({username: userDetails.username , translations : []}) // here we add element/object to the body
+            })
+          
+                if(!response.ok){
+                    console.log(`Request rejected. Status: ${response.status}`);
+                    return Promise.reject()
+                 }
+        
+            const users = await response.json();
+            return {user : users}
+        }   
     }
 )
 
@@ -75,7 +78,9 @@ export const userSlice = createSlice({
     initialState:{
         users:[],
         loadingUsers : false,
-        error: null,   
+        error: null, 
+        loggedInUser: {}
+        //username: JSON.parse(localStorage.getItem('username'))   
          
     },
     reducers:{
@@ -97,11 +102,19 @@ export const userSlice = createSlice({
         },
 
         [addUser.fulfilled] : (state, action) =>{        
-            state.users.push(action.payload.user)
+           // state.users.push(action.payload.user)
+           state.loggedInUser = action.payload.user
         },
 
-        [addTranslation.fulfilled] : (state, action)=>{        
-            state.user.translation.push(action.payload.translation)
+        // [addTranslation.fulfilled] : (state, action)=>{        
+        //     state.user.translation.push(action.payload.translation)
+        // }
+        [addTranslation.fulfilled]: (state, action) => {
+            state.user.translation.push(...action.payload.translations)
+        },
+
+        [addTranslation.rejected]: (state, action) => {
+            // handle the error here, for example by showing a notification or logging the error
         }
       
     }
