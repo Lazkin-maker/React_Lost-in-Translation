@@ -4,7 +4,7 @@ import InputComponent from '../components/InputComponent'
 import { useEffect, useState } from "react";
 import { addTranslation } from '../reducers/userSlice';
 import { useDispatch, useSelector } from "react-redux"
-
+import { useNavigate } from 'react-router-dom';
 
 
 const processInputString = (inputString) => {
@@ -19,23 +19,18 @@ const processInputString = (inputString) => {
 }
 
 const TranslationView = () => {
-
-  const [inputTranslation, setInputTranslation] = useState('');
   const dispatch = useDispatch();
-  const loggedInUser = useSelector(state => state.user.loggedInUser);
-
+  const [inputTranslation, setInputTranslation] = useState('');
+  const useSelectorA = useSelector(state => state.user.loggedInUser);
+  const [loggedInUser, setLoggedInUser] = useState(null);
 
   const [signTranslated, setSignTranslated] = useState([]);
   const [error, setError] = useState(null)
-  // const { users, loadingUsers } = useSelector(state => state.user);
 
-
-  // const currentObj = JSON.parse(localStorage.getItem('user'))
-  // const currentId = currentObj.id;
-  // //console.log("this is logged" , username);
-  // console.log("this is", currentId);
-
-
+  useEffect(() => {
+    // const currentUser = useSelector(useSelector)
+    setLoggedInUser(useSelectorA)
+  }, [dispatch])
 
   const handleTranslation = async (event) => {
     event.preventDefault();
@@ -43,7 +38,6 @@ const TranslationView = () => {
     const { string, error } = processInputString(inputTranslation);
 
     if (string) {
-
       const transDetails = {
         currentId: loggedInUser.id,
         string: string
@@ -52,15 +46,18 @@ const TranslationView = () => {
       console.log(transDetails.currentId, "transDetails.currentId")
       console.log(transDetails.string, 'transDetails.string')
 
-      dispatch(addTranslation(transDetails))
+      await dispatch(addTranslation(transDetails))
 
       setSignTranslated(string.split('').map((chars, index) => (
         `individial_signs/${chars}.png`
       )));
+
+      setInputTranslation('')
     } else {
       setError(error);
     }
-
+    
+    console.log(loggedInUser.id, "transDetails.currentId 2")
   }
 
   return (

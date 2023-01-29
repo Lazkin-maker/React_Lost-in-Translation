@@ -50,9 +50,10 @@ export const addTranslation = createAsyncThunk(
         console.log("Iddddd",transDetails.currentId)
         console.log("string",transDetails.string)
         // console.log("string ARRAY", [transDetails.string,...transDetails])
-        
+
         const transState = getState().user;
         const currentUser = transState.loggedInUser;
+
 
        
         const response = await fetch(API_BASE_URL+"/"+currentUser.id, {
@@ -71,10 +72,15 @@ export const addTranslation = createAsyncThunk(
             console.log(`Request rejected. Status: ${response.status}`);
             return Promise.reject()
         }   
-        const json = await response.json();
+        // const json = await response.json();
         // transState = getState().user;
-        transState.translations = json.transDetails; 
-        return transState;
+
+        const users = await response.json();
+        return {user : users}
+        
+        // transState.translations = json.transDetails; 
+
+        // return transState;
     }
 )
 
@@ -138,10 +144,24 @@ export const userSlice = createSlice({
             state.error = action.error
             state.loadingUsers = false
         },
+        
+        [addUser.pending] : (state, action) =>{
+            state.loadingUsers = true
+        },
 
         [addUser.fulfilled] : (state, action) =>{        
            // state.users.push(action.payload.user)
            state.loggedInUser = action.payload.user
+        },
+
+        [addTranslation.pending] : (state, action)=>{        
+            state.loadingUsers = true
+        },
+
+        [addTranslation.fulfilled] : (state, action)=>{
+            // state.loggedInUser.translations = [...action.payload]
+            state.loggedInUser.translations = action.payload.translations
+            // state.user.translation.push(...action.payload.translations)
         },
 
         // [addTranslation.fulfilled] : (state, action)=>{        
