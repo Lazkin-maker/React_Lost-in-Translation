@@ -1,10 +1,23 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Col, Container, Row } from "react-bootstrap"
+import { useDispatch } from "react-redux";
 import TranslationHistoryItem from "./TranslationHistoryItem";
 
 const TranslationHistory = () => {
-
+   // const dispatch = useDispatch();
     let [items, setItems] = useState(['qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq', 'då', 'varför', 'sova', 'heja', 'deja', 'sju', 'åta', 'nio', 'tio']);
+
+    // useEffect(()=> {
+    //     dispatch(fetchUsers())
+    // },[dispatch])
+    // const lastTenRecords = useSelector(state => state.users.translations.slice(-10))
+    // return(
+    //     <div>
+    //         {lastTenRecords.map(record =>(
+    //             <p key={record.id}>{record.name}</p>
+    //         ))}
+    //     </div>
+    // )
 
     const deleteAll = () => {
         if (window.confirm("Are you sure you want to delete all translations?")) {
@@ -31,7 +44,8 @@ const TranslationHistory = () => {
         <Container>
             <Row >
                 <Col className="justify-content-md-center border shadow-lg p-3 mb-5 bg-body rounded">
-                    <ul>
+
+                    {/* <ul>
                         {items.map((item, index) => (
                             <TranslationHistoryItem key={index} item={item} index={index} deleteItem={deleteItem} viewTranslation={viewTranslation} />
                             // <li key={index} className="d-flex justify-content-between align-items-start">
@@ -51,7 +65,7 @@ const TranslationHistory = () => {
                             //     </div>
                             // </li>
                         ))}
-                    </ul>
+                    </ul> */}
                 <button className="btn btn-danger" onClick={deleteAll}>
                     <span> Delete All </span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash-fill" viewBox="0 0 16 16">

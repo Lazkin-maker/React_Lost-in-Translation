@@ -10,7 +10,13 @@ import { useSelector } from "react-redux"
 
 
 const Header = () => {
-  let user = localStorage.getItem('username')
+  const currentObj = JSON.parse(localStorage.getItem('user'))
+  let userName ="";
+  if(currentObj){
+    userName = currentObj.username;
+    console.log("this is the user::",userName)
+  }
+  
 
   return (
     <header>
@@ -32,7 +38,7 @@ const Header = () => {
           <h1 style={{ color: '#EFEFEF' }}>Lost in Translation</h1>
           </Link>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'evenly' }}>
-            <span style={{ backgroundColor: '#E7B355', borderRadius: '2em 0 0 2em', paddingLeft: '12px', color: '#EFEFEF' }}>{user}</span>
+            <span style={{ backgroundColor: '#E7B355', borderRadius: '2em 0 0 2em', paddingLeft: '12px', color: '#EFEFEF' }}>{userName}</span>
             <div style={{ backgroundColor: '#E7B355', width: '48px', height: '48px', borderRadius: '1.5em' }}>
               <Link to="/profile">  
                   <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="#EFEFEF" className="bi bi-person-circle" viewBox="0 0 16 16">

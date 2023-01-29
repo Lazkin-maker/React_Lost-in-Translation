@@ -6,7 +6,12 @@ const ProfileView = () => {
     const navigate = useNavigate();
 
     const handleLogut = () => {
-        localStorage.removeItem('username', JSON.stringify(''),[''])
+        // localStorage.removeItem('username', JSON.stringify(''),[''])
+        //localStorage.removeItem('user');
+
+        localStorage.removeItem('user', JSON.stringify(''),[''])
+
+        
         // localStorage.clear()
         navigate('/')
     }
