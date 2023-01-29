@@ -49,10 +49,13 @@ export const addTranslation = createAsyncThunk(
     async(transDetails,{getState, dispatch})=>{
         console.log("Iddddd",transDetails.currentId)
         console.log("string",transDetails.string)
-        console.log("string ARRAY", [transDetails.string,...transDetails])
+        // console.log("string ARRAY", [transDetails.string,...transDetails])
         
+        const transState = getState().user;
+        const currentUser = transState.loggedInUser;
+
        
-        const response = await fetch(API_BASE_URL+"/"+transDetails.currentId, {
+        const response = await fetch(API_BASE_URL+"/"+currentUser.id, {
             method: 'PATCH', // NB: Set method to PATCH
             headers: {
               'X-API-Key': ` ${process.env.REACT_APP_API_KEY}`,
@@ -60,7 +63,7 @@ export const addTranslation = createAsyncThunk(
             },
             body: JSON.stringify({
                  // Provide new translations to add to user with id 1
-                 translations: [...transDetails,transDetails.string]
+                 translations: [...currentUser.translations, transDetails.string]
                 // translations.push(transDetails.string)
             })       
         })
@@ -69,9 +72,9 @@ export const addTranslation = createAsyncThunk(
             return Promise.reject()
         }   
         const json = await response.json();
-        const state = getState().user;
-        state.translations = json.transDetails; 
-        return state;
+        // transState = getState().user;
+        transState.translations = json.transDetails; 
+        return transState;
     }
 )
 
@@ -119,6 +122,7 @@ export const userSlice = createSlice({
     },
     reducers:{
 
+
     },
     extraReducers: {
         [fetchUsers.pending] : (state, action) =>{
@@ -143,9 +147,9 @@ export const userSlice = createSlice({
         // [addTranslation.fulfilled] : (state, action)=>{        
         //     state.user.translation.push(action.payload.translation)
         // }
-        [addTranslation.fulfilled]: (state, action) => {
-            state.user.translation.push(...action.payload.translations)
-        },
+        // [addTranslation.fulfilled]: (state, action) => {
+        //     state.user.translations.push(...action.payload.translations)
+        // },
 
         [addTranslation.rejected]: (state, action) => {
             // handle the error here, for example by showing a notification or logging the error
