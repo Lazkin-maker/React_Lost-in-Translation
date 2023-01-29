@@ -2,6 +2,9 @@ import { Container, Row, Col } from "react-bootstrap"
 import TranslationDisplay from "../components/TranslationDisplay";
 import InputComponent from '../components/InputComponent'
 import { useEffect, useState } from "react";
+import { addTranslation } from '../reducers/userSlice';
+import { useDispatch } from "react-redux"
+
 
 
 const processInputString = (inputString) => {
@@ -21,18 +24,26 @@ const TranslationView = () => {
   const [error, setError] = useState(null)
   // const { users, loadingUsers } = useSelector(state => state.user);
 
-  //const dispatch = useDispatch();
-  //let username = JSON.parse(localStorage.getItem('username[]'))
-  let username = JSON.parse(localStorage.getItem('username'))
-  console.log("this is logged" , username);
+  const dispatch = useDispatch();
+  
+  const currentObj = JSON.parse(localStorage.getItem('user'))
+  const currentId = currentObj.id;
+  //console.log("this is logged" , username);
+  console.log("this is" , currentId);
 
 
-  const handleTranslation = (event) => {
+
+  const handleTranslation = async (event) => {
     event.preventDefault();
-
     const {string, error} = processInputString(inputTranslation);
 
     if (string) {
+    console.log("this is ID BEFORE SENDING" , currentId);
+    console.log("this is string BEFORE SENDING" , string);
+
+      const payload = {currentId, string}
+      
+      const response = await dispatch(addTranslation(payload))
       setSignTranslated(string.split('').map((chars, index) => (
         `individial_signs/${chars}.png`
       )));
