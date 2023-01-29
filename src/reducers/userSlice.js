@@ -18,26 +18,60 @@ export const fetchUsers = createAsyncThunk(
 )
 
 
+// export const addTranslation = createAsyncThunk(
+//     "user/addTranslation",
+//     async(transDetails, userId)=>{
+//         const response = await fetch(`${API_BASE_URL}/${userId}`, {
+//        // const response = await fetch(API_BASE_URL+"/"+userId, {
+
+//             method: 'PATCH', // NB: Set method to PATCH
+//             headers: {
+//               'X-API-Key': ` ${process.env.REACT_APP_API_KEY}`,
+//               'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify({
+//                 // Provide new translations to add to user with id 1
+//                 translations: ['','i love javascript'] 
+//             })
+//         })
+//         if(!response.ok){
+//             console.log(`Request rejected. Status: ${response.status}`);
+//             return Promise.reject()
+//         }   
+//         const users = await response.json();
+//         return {user : users}
+//     }
+// )
+
+
 export const addTranslation = createAsyncThunk(
     "user/addTranslation",
-    async(transDetails, userId)=>{
-        const response = await fetch(`${API_BASE_URL}/${userId}`, {
+    async(transDetails,{getState, dispatch})=>{
+        console.log("Iddddd",transDetails.currentId)
+        console.log("string",transDetails.string)
+        console.log("string ARRAY", [transDetails.string,...transDetails])
+        
+       
+        const response = await fetch(API_BASE_URL+"/"+transDetails.currentId, {
             method: 'PATCH', // NB: Set method to PATCH
             headers: {
               'X-API-Key': ` ${process.env.REACT_APP_API_KEY}`,
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                // Provide new translations to add to user with id 1
-                translations: ['easy', 'i love javascript'] 
-            })
+                 // Provide new translations to add to user with id 1
+                 translations: [...transDetails,transDetails.string]
+                // translations.push(transDetails.string)
+            })       
         })
         if(!response.ok){
             console.log(`Request rejected. Status: ${response.status}`);
             return Promise.reject()
         }   
-        const users = await response.json();
-        return {users}
+        const json = await response.json();
+        const state = getState().user;
+        state.translations = json.transDetails; 
+        return state;
     }
 )
 

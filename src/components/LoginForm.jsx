@@ -20,6 +20,8 @@ const LoginForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     //const [userId, setId] = useState(0)
+    //const newObjId =0;
+    let userId = 0;
 
     useEffect(() => {
         dispatch(fetchUsers())
@@ -69,20 +71,31 @@ const LoginForm = () => {
         //}
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         const { string, errorr } = processInputString(username)
-        const loginUser = users.find(user => user.username === username)
-        //console.log(string);
-        if (!loginUser) { // true must changes
+        
+       // console.log(loginUser);
+        if (string) { // true must changes
             event.preventDefault();
-            console.log(string)
-            // dispatch(addUser({ username }))
+            console.log("You are :",string)
+            console.log(username)
+  
+           const response = await dispatch(addUser({ username : string }))
+           const newObjId = response.payload.user.id;
+           userId = newObjId;
+           //console.log(newObjId);
+           //console.log(userId);
+
+           //console.log(response);
+           
         } else {
             setError(errorr)
         }
 
-        localStorage.setItem('username', JSON.stringify(string),[string] ) // TODO localStorage
-       // localStorage.setItem('id', JSON.stringify(userId) ) // TODO localStorage
+        //localStorage.setItem('username', JSON.stringify(string),[string] ) // TODO localStorage
+        //localStorage.setItem('user', JSON.stringify(userId),[userId] ) // TODO localStorage
+
+        localStorage.setItem('user', JSON.stringify({username: string, id: userId}));
         navigate('/translation');
     }
 
