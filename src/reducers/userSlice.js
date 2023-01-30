@@ -8,7 +8,6 @@ export const fetchUsers = createAsyncThunk(
     "user/FetchUsers",
     async () => {
         const response = await fetch(API_BASE_URL);
-        //await simulateDelay()
         if (!response.ok) {
             return Promise.reject()
         }
@@ -17,38 +16,9 @@ export const fetchUsers = createAsyncThunk(
     }
 )
 
-
-// export const addTranslation = createAsyncThunk(
-//     "user/addTranslation",
-//     async(transDetails, userId)=>{
-//         const response = await fetch(`${API_BASE_URL}/${userId}`, {
-//        // const response = await fetch(API_BASE_URL+"/"+userId, {
-
-//             method: 'PATCH', // NB: Set method to PATCH
-//             headers: {
-//               'X-API-Key': ` ${process.env.REACT_APP_API_KEY}`,
-//               'Content-Type': 'application/json'
-//             },
-//             body: JSON.stringify({
-//                 // Provide new translations to add to user with id 1
-//                 translations: ['','i love javascript'] 
-//             })
-//         })
-//         if(!response.ok){
-//             console.log(`Request rejected. Status: ${response.status}`);
-//             return Promise.reject()
-//         }   
-//         const users = await response.json();
-//         return {user : users}
-//     }
-// )
-
-
 export const addTranslation = createAsyncThunk(
     "user/addTranslation",
     async (transDetails, { getState, dispatch }) => {
-        console.log("Iddddd", transDetails.currentId)
-        console.log("string", transDetails.string)
 
         const transState = getState().user;
         const currentUser = transState.loggedInUser;
@@ -60,8 +30,8 @@ export const addTranslation = createAsyncThunk(
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                translations: [...currentUser.translations, transDetails.string]
-                //  translations: [transDetails.string]
+                translations: [...currentUser.translations, {translationString: transDetails.string, activeTranslation: true}]
+                //  translations: [ {translationString: transDetails.string, activeTranslation: true}]
 
             })
         })
@@ -76,6 +46,67 @@ export const addTranslation = createAsyncThunk(
         return updateUserTranslation;
     }
 )
+
+export const deleteTranslation = createAsyncThunk(
+    "user/addTranslation",
+    async (transDetails, { getState, dispatch }) => {
+
+        const transState = getState().user;
+        const currentUser = transState.loggedInUser;
+
+        const response = await fetch(API_BASE_URL + "/" + currentUser.id, {
+            method: 'PATCH', // NB: Set method to PATCH
+            headers: {
+                'X-API-Key': ` ${process.env.REACT_APP_API_KEY}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                translations: []
+                //  translations: [ {translationString: transDetails.string, activeTranslation: true}]
+
+            })
+        })
+        if (!response.ok) {
+            console.log(`Request rejected. Status: ${response.status}`);
+            throw new Error("Something went wrong while adding");
+            // return Promise.reject()
+        }
+
+        const updateUserTranslation = await response.json();
+
+        return updateUserTranslation;
+    }
+)
+
+// export const deleteTranslation = createAsyncThunk(
+//     "user/addTranslation",
+//     async (translations) => {
+//         // FIND THE 10 LAST activeTranslation
+//         const lastActiveTranslation = translations.filter(translation => translation.active).slice(-10)
+
+//         const response = await fetch(API_BASE_URL + "/" + currentUser.id, {
+//             method: 'PATCH', // NB: Set method to PATCH
+//             headers: {
+//                 'X-API-Key': ` ${process.env.REACT_APP_API_KEY}`,
+//                 'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify({
+//                 translations: [...currentUser.translations, {translationString: transDetails.string, activeTranslation: false}]
+//                 //  translations: [ {translationString: transDetails.string, activeTranslation: true}]
+
+//             })
+//         })
+//         if (!response.ok) {
+//             console.log(`Request rejected. Status: ${response.status}`);
+//             throw new Error("Something went wrong while adding");
+//             // return Promise.reject()
+//         }
+
+//         const updateUserTranslation = await response.json();
+
+//         return updateUserTranslation;
+//     }
+// )
 
 export const addUser = createAsyncThunk(
     "user/addUser",
@@ -105,9 +136,9 @@ export const addUser = createAsyncThunk(
     }
 )
 
-const simulateDelay = async () => {
-    return new Promise(x => setTimeout((x), 2000))
-}
+// const simulateDelay = async () => {
+//     return new Promise(x => setTimeout((x), 2000))
+// }
 
 export const userSlice = createSlice({
     name: "user",
