@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Container, Button} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
@@ -8,6 +9,12 @@ const ProfileView = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const loggedInUser = useSelector(state => state.user.loggedInUser);
+
+    // useEffect(() => {
+    //     if (loggedInUser == null) {
+    //         navigate('/')
+    //     }
+    // }, [loggedInUser, navigate])
 
     const handleLogut = () => {
         localStorage.removeItem('user', JSON.stringify(''),[''])
