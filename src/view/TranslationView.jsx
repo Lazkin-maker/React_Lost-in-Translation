@@ -3,54 +3,66 @@ import TranslationDisplay from "../components/TranslationDisplay";
 import InputComponent from '../components/InputComponent'
 import { useEffect, useState } from "react";
 import { addTranslation } from '../reducers/userSlice';
-import { useDispatch } from "react-redux"
-
-
+import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom";
 
 const processInputString = (inputString) => {
-  inputString = inputString.toLowerCase().replace(/[^a-zA-Z]/g, '');
+  inputString = inputString.toLowerCase().replace(/[^a-z]/g, '');
+  // inputString = inputString.toLowerCase().replace(/[^a-z\s]/g, '');
 
-  const regex = /[^a-zA-Z]{0,40}$/
+
+  const regex = /[^a-z]{0,40}$/
   if (regex.test(inputString)) {
-    return {string:inputString, error:null}
-  } 
-  return {string:null, error:"Something went wrong please try again!"}
+    return { string: inputString, error: null }
+  }
+  return { string: null, error: "Something went wrong please try again!" }
 }
 
 const TranslationView = () => {
-
+  const dispatch = useDispatch();
   const [inputTranslation, setInputTranslation] = useState('');
+  const useSelectLoggedIn = useSelector(state => state.user.loggedInUser);
+  const [loggedInUser, setLoggedInUser] = useState(null);
+
   const [signTranslated, setSignTranslated] = useState([]);
   const [error, setError] = useState(null)
-  // const { users, loadingUsers } = useSelector(state => state.user);
 
-  const dispatch = useDispatch();
-  
-  const currentObj = JSON.parse(localStorage.getItem('user'))
-  const currentId = currentObj.id;
-  //console.log("this is logged" , username);
-  console.log("this is" , currentId);
+  const navigate = useNavigate();
 
 
+  // useEffect(() => {
+  //     if (!useSelectLoggedIn) {
+  //         navigate('/')
+  //     } else {
+  //       setLoggedInUser(useSelectLoggedIn
+  //         )}
+  // }, [loggedInUser, navigate, dispatch])
+
+  useEffect(() => {
+    setLoggedInUser(useSelectLoggedIn)
+  }, [dispatch])
 
   const handleTranslation = async (event) => {
     event.preventDefault();
-    const {string, error} = processInputString(inputTranslation);
+
+    const { string, error } = processInputString(inputTranslation);
 
     if (string) {
-    console.log("this is ID BEFORE SENDING" , currentId);
-    console.log("this is string BEFORE SENDING" , string);
+      const transDetails = {
+        currentId: loggedInUser.id,
+        string: string
+      }
 
-      const payload = {currentId, string}
-      
-      const response = await dispatch(addTranslation(payload))
+      await dispatch(addTranslation(transDetails))
+
       setSignTranslated(string.split('').map((chars, index) => (
         `individial_signs/${chars}.png`
       )));
+
+      
     } else {
       setError(error);
     }
-
   }
 
   return (
@@ -66,7 +78,7 @@ const TranslationView = () => {
               value={inputTranslation}
               setValue={error ? error : setInputTranslation}
               maxLength={40}
-            />
+              />
           </Col>
         </Row>
       </Container>
