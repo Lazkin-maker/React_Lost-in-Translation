@@ -10,11 +10,13 @@ import { useSelector } from "react-redux"
 
 
 const Header = () => {
-  const currentObj = JSON.parse(localStorage.getItem('user'))
+  // const currentObj = JSON.parse(localStorage.getItem('user'))
+  const loggedInUser = useSelector(state => state.user.loggedInUser);
   let userName ="";
-  if(currentObj){
-    userName = currentObj.username;
-    console.log("this is the user::",userName)
+  if(loggedInUser != null){
+    userName = loggedInUser.username;
+  } else {
+    userName = "No Name"
   }
   
 
@@ -34,9 +36,9 @@ const Header = () => {
             {' '}
           </Navbar.Brand>
           {/* TODO REMOVE */}
-          <Link to="/">  
+ 
           <h1 style={{ color: '#EFEFEF' }}>Lost in Translation</h1>
-          </Link>
+
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'evenly' }}>
             <span style={{ backgroundColor: '#E7B355', borderRadius: '2em 0 0 2em', paddingLeft: '12px', color: '#EFEFEF' }}>{userName}</span>
             <div style={{ backgroundColor: '#E7B355', width: '48px', height: '48px', borderRadius: '1.5em' }}>
